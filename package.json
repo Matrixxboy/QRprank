@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint prank-qr-site",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,5 +23,13 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "vite": "^6.2.0"
+  },
+  "eslintConfig": {
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   }
 }
