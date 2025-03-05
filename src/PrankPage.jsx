@@ -1,30 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const PrankPage = () => {
     const [clicked, setClicked] = useState(false);
+    const [randomNumbers, setRandomNumbers] = useState<number[]>([]);
+
+    useEffect(() => {
+        const numbers = Array.from({ length: 30 }, () => Math.floor(Math.random() * 10000));
+        setRandomNumbers(numbers);
+    }, []);
 
     return (
         <div className="h-screen flex items-center justify-center bg-black text-green-500 text-center p-6 relative overflow-hidden">
-            {/* Animated Cyber Security Background */}
+            {/* Cyber Security Background */}
             <div className="absolute inset-0 bg-black overflow-hidden">
-                <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?hacking,cyber')" }}></div>
+                <div className="absolute inset-0 bg-cover bg-center opacity-20" 
+                     style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?hacking,cyber')" }}>
+                </div>
                 <div className="absolute inset-0 bg-black opacity-50"></div>
                 <div className="absolute inset-0 flex flex-wrap animate-move">
-                    {Array.from({ length: 30 }).map((_, i) => (
-                        <span key={i} className="text-green-500 text-xs sm:text-sm opacity-50 animate-blink absolute" style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                        }}>
-                            0x{Math.floor(Math.random() * 10000).toString(16)}
+                    {randomNumbers.map((num, i) => (
+                        <span key={i} className="text-green-500 text-xs sm:text-sm opacity-50 animate-blink absolute"
+                              style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}>
+                            0x{num.toString(16)}
                         </span>
                     ))}
                 </div>
             </div>
 
+            {/* Main Content */}
             <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg shadow-lg border border-green-500 animate-pulse relative z-10 flex flex-col items-center justify-center min-h-[300px]">
                 <div className="absolute inset-0 bg-green-500 opacity-10 blur-2xl"></div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 glitch text-center flex items-center justify-center min-h-[100px]" data-text="🚨 There is Nothing Free! 🚨">🚨 There is Nothing Free! 🚨</h1>
-                <p className="text-base sm:text-lg mb-4 animate-bounce text-center">Don't scan every QR code. You've been tricked! 😆</p>
+                
+                <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 glitch text-center flex items-center justify-center min-h-[100px]" 
+                    data-text="🚨 There is Nothing Free! 🚨">
+                    🚨 There is Nothing Free! 🚨
+                </h1>
+
+                <p className="text-base sm:text-lg mb-4 animate-bounce text-center">
+                    Don't scan every QR code. You've been tricked! 😆
+                </p>
 
                 {!clicked ? (
                     <button
@@ -44,18 +58,18 @@ const PrankPage = () => {
             <style>
                 {`
                     @keyframes shake {
-                        0% { transform: translateX(0); }
+                        0%, 100% { transform: translateX(0); }
                         25% { transform: translateX(-5px); }
                         50% { transform: translateX(5px); }
                         75% { transform: translateX(-5px); }
-                        100% { transform: translateX(0); }
                     }
                     .animate-shake { animation: shake 0.3s ease-in-out infinite; }
+
                     .glitch {
                         position: relative;
-                        display: inline-block;
                         color: white;
                         font-weight: bold;
+                        display: inline-block;
                     }
                     .glitch::before, .glitch::after {
                         content: attr(data-text);
@@ -78,6 +92,7 @@ const PrankPage = () => {
                         clip: rect(0, 900px, 0, 0);
                         animation: glitch 1s infinite linear alternate;
                     }
+
                     @keyframes glitch {
                         0% { clip: rect(42px, 9999px, 44px, 0); }
                         25% { clip: rect(12px, 9999px, 20px, 0); }
@@ -85,6 +100,7 @@ const PrankPage = () => {
                         75% { clip: rect(52px, 9999px, 60px, 0); }
                         100% { clip: rect(72px, 9999px, 80px, 0); }
                     }
+
                     @keyframes blink {
                         0%, 100% { opacity: 0.2; }
                         50% { opacity: 1; }
@@ -92,6 +108,7 @@ const PrankPage = () => {
                     .animate-blink {
                         animation: blink 1.5s infinite alternate;
                     }
+
                     @keyframes move {
                         0% { transform: translateY(0); }
                         50% { transform: translateY(-10px); }
